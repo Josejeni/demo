@@ -18,6 +18,8 @@ class post(BaseModel):
     user_id:int
     content:str
     title:str
+
+    
 class vote(BaseModel):
     post_id:int
     dir:conint(le=1)
