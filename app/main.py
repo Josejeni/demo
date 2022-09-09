@@ -18,16 +18,21 @@ def login(post:log,db:Session=Depends(get_db)):
     db.refresh(my_post)
     return{"data":my_post}
 
-@app.get("/get/{username}")
-def get_post(username:str,db:Session=Depends(get_db)):
 
+
+
+@app.get("/get_info/{username}")
+def get_post(username:str,db:Session=Depends(get_db)):
+ 
     try:
-        get_post=db.query(models.log).filter(models.log.user_name==username)
+        get_post=db.query(models.log).filter(models.log.user_name == username)
+      
         got=get_post.first()
-        return got
+        return {"msg":got}
     except:
-        return HTTPException(state_code=status.HTTP_404_NOT_FOUND,detail="not found")
-    
+        return HTTPException(state_code=status.HTTP_404_NOT_FOUND,detail="cannot found")
+
+
 
 
 @app.delete("/delete/{username}")
@@ -39,8 +44,8 @@ def delete_post(username:str,db:Session=Depends(get_db)):
     return{"data":dell}
 
 @app.put("/put/{username}")
-def put_post(username:str,post:log,db:Session=Depends(get_db)):
-    updated_post=db.query(models.log).filter(models.log.user_name==username)
+def put_post(user_name:str,post:log,db:Session=Depends(get_db)):
+    updated_post=db.query(models.log).filter(models.log.user_name==user_name)
     up=updated_post.first()
     if up==None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Page not found")
