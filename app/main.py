@@ -10,13 +10,13 @@ models.Base.metadata.create_all(bind=engine)
 
 app=FastAPI()
 
-@app.post("/posts")
-def login(post:log,db:Session=Depends(get_db)):
-    my_post=models.log(**post.dict())
-    db.add(my_post)
-    db.commit()
-    db.refresh(my_post)
-    return{"data":my_post}
+# @app.post("/posts")
+# def login(post:log,db:Session=Depends(get_db)):
+#     my_post=models.log(**post.dict())
+#     db.add(my_post)
+#     db.commit()
+#     db.refresh(my_post)
+#     return{"data":my_post}
 
 
 
