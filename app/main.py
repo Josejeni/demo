@@ -1,7 +1,3 @@
-
-from pyexpat import model
-from statistics import mode
-from webbrowser import get
 from fastapi import FastAPI,HTTPException,status
 from .schemas import log, post, user, vote
 from . import models
@@ -14,7 +10,7 @@ models.Base.metadata.create_all(bind=engine)
 
 app=FastAPI()
 
-@app.post('/post')
+@app.post("/posts")
 def login(post:log,db:Session=Depends(get_db)):
     my_post=models.log(**post.dict())
     db.add(my_post)
@@ -61,13 +57,13 @@ def user_post(post:user,db:Session=Depends(get_db)):
     db.refresh(my_post)
     return{"data":my_post}
 
-@app.post("/post_user")
-def user_post(post:post,db:Session=Depends(get_db)):
-    my_post=models.posts(**post.dict())
-    db.add(my_post)
-    db.commit()
-    db.refresh(my_post)
-    return{"data":my_post}
+# @app.post("/post_user")
+# def user_post(post:post,db:Session=Depends(get_db)):
+#     my_post=models.posts(**post.dict())
+#     db.add(my_post)
+#     db.commit()
+#     db.refresh(my_post)
+#     return{"data":my_post}
 
 
 
