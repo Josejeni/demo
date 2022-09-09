@@ -10,27 +10,27 @@ models.Base.metadata.create_all(bind=engine)
 
 app=FastAPI()
 
-# @app.post("/posts")
-# def login(post:log,db:Session=Depends(get_db)):
-#     my_post=models.log(**post.dict())
-#     db.add(my_post)
-#     db.commit()
-#     db.refresh(my_post)
-#     return{"data":my_post}
+@app.post("/posts")
+def login(post:log,db:Session=Depends(get_db)):
+    my_post=models.log(**post.dict())
+    db.add(my_post)
+    db.commit()
+    db.refresh(my_post)
+    return{"data":my_post}
 
 
 
 
-@app.get("/get_info/{username}")
-def get_post(username:str,db:Session=Depends(get_db)):
+# @app.get("/get_info/{username}")
+# def get_post(username:str,db:Session=Depends(get_db)):
  
-    try:
-        get_post=db.query(models.log).filter(models.log.user_name == username)
+#     try:
+#         get_post=db.query(models.log).filter(models.log.user_name == username)
       
-        got=get_post.first()
-        return {"msg":got}
-    except:
-        return HTTPException(state_code=status.HTTP_404_NOT_FOUND,detail="cannot found")
+#         got=get_post.first()
+#         return {"msg":got}
+#     except:
+#         return HTTPException(state_code=status.HTTP_404_NOT_FOUND,detail="cannot found")
 
 
 
