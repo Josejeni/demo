@@ -27,16 +27,16 @@ def login(post:log,db:Session=Depends(get_db)):
 
 
 
-# @app.get("/get_info/{username}")
-# def get_post(username:str,db:Session=Depends(get_db)):
+@app.get("/get_info/{username}")
+def get_post(username:str,db:Session=Depends(get_db)):
  
-#     try:
-#         get_post=db.query(models.log).filter(models.log.user_name == username)
+    try:
+        get_post=db.query(models.log).filter(models.log.user_name == username)
       
-#         got=get_post.first()
-#         return {"msg":got}
-#     except:
-#         return HTTPException(state_code=status.HTTP_404_NOT_FOUND,detail="cannot found")
+        got=get_post.first()
+        return {"msg":got}
+    except:
+        return HTTPException(state_code=status.HTTP_404_NOT_FOUND,detail="cannot found")
 
 
 
