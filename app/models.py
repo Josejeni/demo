@@ -26,8 +26,3 @@ class Vote(Base):
     __tablename__="Votes"
     post_id=Column(Integer,ForeignKey("post.id",ondelete="CASCADE"),primary_key=True)
     user_id=Column(Integer,ForeignKey("users.id",ondelete="CASCADE"))
-    
-class sam(Base):
-    __tablename__="mercy"
-    id=Column(Integer,primary_key=True,nullable=True)
-    title=Column(Integer)

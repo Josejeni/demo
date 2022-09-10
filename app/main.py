@@ -16,6 +16,8 @@ app=FastAPI()
 def root():
     return {"Helo"}
 
+
+
 @app.post("/posts")
 def login(post:log,db:Session=Depends(get_db)):
     my_post=models.log(**post.dict())
@@ -84,7 +86,7 @@ def user_post(post:user,db:Session=Depends(get_db)):
 @app.post("/vote")
 def post_vote(vote:vote,db:Session=Depends(get_db)):
    vote_query=db.query(models.Vote).filter(vote.post_id==models.posts.id)
-   found_vote=vote_query.filter()
+   found_vote=vote_query.first()
    if(dir==1):
     if found_vote:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,detail="Already existed")
@@ -95,7 +97,7 @@ def post_vote(vote:vote,db:Session=Depends(get_db)):
     return{"success"}
    else:
     if not found_vote:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Not found..")
     db.delete(found_vote)
     db.commit()
     return {"deleted"}
